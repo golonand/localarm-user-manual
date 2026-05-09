@@ -56,7 +56,7 @@
             <li><a href="#pl-4">Udostępnianie lokalizacji z aplikacji mapowych</a></li>
             <li><a href="#pl-5">Uruchamianie i zatrzymywanie monitoringu</a></li>
             <li><a href="#pl-6">Działanie alarmu</a></li>
-            <li><a href="#pl-7">Cooldown alarmu (okres karencji)</a></li>
+            <li><a href="#pl-7">Ponowne wyzwolenie alarmu</a></li>
             <li><a href="#pl-8">Częstotliwość odświeżania lokalizacji</a></li>
             <li><a href="#pl-9">Promień alarmu</a></li>
             <li><a href="#pl-10">Tryb alarmu (dźwięk / wibracja)</a></li>
@@ -126,12 +126,24 @@
             <div class="warning"><strong>Ważne:</strong> Alarm trwa do ręcznego zatrzymania. Dopóki trwa, nowy alarm nie zostanie uruchomiony.</div>
         </div>
 
-        <div class="section" id="pl-7"><h2>7. Cooldown alarmu (okres karencji)</h2>
-            <p>Po zatrzymaniu alarmu: <strong>5-minutowy cooldown</strong>. Schemat zabezpieczeń:</p>
-            <div class="info">1. Alarm trwa? → nie uruchamiaj nowego.<br>
-                2. Cooldown aktywny? → nie uruchamiaj.<br>
-                3. W strefie alarmu? → uruchom alarm.</div>
-        </div>
+        <div class="section" id="pl-7"><h2>7. Ponowne wyzwolenie alarmu</h2>
+    <p>Alarm reaguje na <strong>wejście w strefę</strong> — czyli na moment przekroczenia granicy promienia z zewnątrz do wewnątrz. Samo przebywanie w strefie nie wyzwala alarmu ponownie.</p>
+    <h3>Jak działa ponowne wyzwolenie</h3>
+    <p>Po zatrzymaniu alarmu przyciskiem STOP:</p>
+    <ul>
+        <li>Rozpoczyna się <strong>5-minutowy okres cooldown</strong> — w tym czasie alarm nie może się ponownie uruchomić, nawet jeśli opuścisz strefę i wrócisz.</li>
+        <li>Po upływie cooldownu alarm jest gotowy do ponownego wyzwolenia, ale <strong>wymaga opuszczenia strefy i ponownego wejścia</strong>.</li>
+        <li>Jeśli po zatrzymaniu alarmu pozostajesz w strefie (np. wysiadłeś na przystanku i stoisz w miejscu) — alarm <strong>nie odpali się ponownie</strong>, dopóki nie wyjdziesz poza promień i nie wrócisz.</li>
+    </ul>
+    <h3>Schemat zabezpieczeń</h3>
+    <div class="info">
+        1. Alarm właśnie dźwięczy/wibruje? → nie uruchamiaj nowego.<br>
+        2. Cooldown aktywny (5 min od zatrzymania)? → nie uruchamiaj.<br>
+        3. Byłeś poza strefą od ostatniego alarmu? → NIE → nie uruchamiaj.<br>
+        4. Właśnie wszedłeś w strefę (przekroczyłeś granicę)? → TAK → uruchom alarm.
+    </div>
+    <div class="tip"><strong>W praktyce:</strong> Dla komunikacji miejskiej alarm obudzi Cię raz przed przystankiem. Jeśli nie wysiądziesz i pojedziesz dalej — alarm odpali się ponownie dopiero gdy opuścisz strefę i ponownie do niej wjedziesz (np. w drodze powrotnej).</div>
+</div>
 
         <div class="section" id="pl-8"><h2>8. Częstotliwość odświeżania lokalizacji</h2>
             <p>Opcje: <strong>10s / 30s / 1m / 5m / 10m</strong></p>
@@ -272,7 +284,7 @@
             <li><a href="#en-4">Sharing Location from Map Apps</a></li>
             <li><a href="#en-5">Starting and Stopping Monitoring</a></li>
             <li><a href="#en-6">Alarm Behavior</a></li>
-            <li><a href="#en-7">Alarm Cooldown</a></li>
+            <li><a href="#en-7">Alarm Re-triggering</a></li>
             <li><a href="#en-8">Location Refresh Frequency</a></li>
             <li><a href="#en-9">Alarm Radius</a></li>
             <li><a href="#en-10">Alarm Mode (Sound / Vibration)</a></li>
@@ -342,12 +354,24 @@
             <div class="warning"><strong>Important:</strong> Alarm continues until manually stopped. No new alarm triggers while active.</div>
         </div>
 
-        <div class="section" id="en-7"><h2>7. Alarm Cooldown</h2>
-            <p><strong>5-minute cooldown</strong> after stopping. Protection scheme:</p>
-            <div class="info">1. Alarm active? → don't trigger.<br>
-                2. Cooldown active? → don't trigger.<br>
-                3. In zone? → trigger alarm.</div>
-        </div>
+        <div class="section" id="en-7"><h2>7. Alarm Re-triggering</h2>
+    <p>The alarm reacts to <strong>entering the zone</strong> — the moment you cross the radius boundary from outside to inside. Simply being inside the zone does not re-trigger the alarm.</p>
+    <h3>How re-triggering works</h3>
+    <p>After stopping the alarm with the STOP button:</p>
+    <ul>
+        <li>A <strong>5-minute cooldown period</strong> begins — during this time the alarm cannot re-trigger, even if you leave and re-enter the zone.</li>
+        <li>After cooldown expires, the alarm is ready to trigger again, but <strong>requires leaving the zone and re-entering</strong>.</li>
+        <li>If you remain in the zone after stopping the alarm (e.g., you got off at your stop and are standing still) — the alarm <strong>will not trigger again</strong> until you move beyond the radius and come back.</li>
+    </ul>
+    <h3>Protection scheme</h3>
+    <div class="info">
+        1. Alarm currently sounding/vibrating? → don't trigger.<br>
+        2. Cooldown active (5 min since stop)? → don't trigger.<br>
+        3. Were you outside the zone since last alarm? → NO → don't trigger.<br>
+        4. Just entered the zone (crossed boundary)? → YES → trigger alarm.
+    </div>
+    <div class="tip"><strong>In practice:</strong> For public transit, the alarm wakes you once before your stop. If you don't get off and continue — the alarm will only trigger again when you leave the zone and re-enter it (e.g., on the return trip).</div>
+</div>
 
         <div class="section" id="en-8"><h2>8. Location Refresh Frequency</h2>
             <p>Options: <strong>10s / 30s / 1m / 5m / 10m</strong></p>
@@ -471,7 +495,7 @@
         </div>
     </div>
 
-    <div class="footer">&copy; 2026 Andrzej Golonka — LocAlarm<br>Wersja instrukcji / Manual version: 2.3 — maj 2026</div>
+    <div class="footer">&copy; 2026 Andrzej Golonka — LocAlarm<br>Wersja instrukcji / Manual version: 2.4 — maj 2026</div>
 </div>
 <script>
 function switchLang(lang) {
