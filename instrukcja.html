@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocAlarm — Instrukcja użytkownika / User Manual</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #333; background: #f8f9fa; }
+        .container { max-width: 800px; margin: 0 auto; padding: 24px 20px; }
+        .header { text-align: center; padding: 40px 0 30px; border-bottom: 3px solid #2e7d32; margin-bottom: 30px; }
+        .header h1 { font-size: 28px; color: #2e7d32; margin-bottom: 8px; }
+        .header .subtitle { color: #666; font-size: 16px; }
+        .lang-switch { text-align: center; margin: 20px 0 30px; }
+        .lang-switch button { padding: 10px 28px; margin: 0 6px; border: 2px solid #2e7d32; background: white; color: #2e7d32; border-radius: 24px; cursor: pointer; font-size: 15px; font-weight: 600; transition: all 0.2s; }
+        .lang-switch button.active { background: #2e7d32; color: white; }
+        .lang-switch button:hover { background: #1b5e20; color: white; }
+        .section { background: white; border-radius: 12px; padding: 28px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+        .section h2 { font-size: 20px; color: #2e7d32; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #e8eaed; }
+        .section h3 { font-size: 17px; color: #444; margin: 16px 0 8px; }
+        .section p { margin-bottom: 12px; }
+        .section ul, .section ol { margin: 10px 0 12px 24px; }
+        .section ul li, .section ol li { margin-bottom: 8px; }
+        .tip { background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 14px 0; }
+        .warning { background: #fff3e0; border-left: 4px solid #e65100; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 14px 0; }
+        .info { background: #e3f2fd; border-left: 4px solid #1565c0; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 14px 0; }
+        code { background: #eceff1; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+        .footer { text-align: center; padding: 30px 0; color: #999; font-size: 13px; border-top: 1px solid #e0e0e0; margin-top: 20px; }
+        .hidden { display: none; }
+        .toc { background: #fafafa; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px 28px; margin-bottom: 24px; }
+        .toc h3 { color: #2e7d32; margin-bottom: 10px; font-size: 18px; }
+        .toc ol { margin-left: 20px; }
+        .toc ol li { margin-bottom: 4px; }
+        .toc a { color: #2e7d32; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        @media (max-width: 600px) { .container { padding: 16px 14px; } .section { padding: 20px 16px; } .header h1 { font-size: 22px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>LocAlarm</h1>
+        <div class="subtitle">Instrukcja użytkownika / User Manual</div>
+    </div>
+    <div class="lang-switch">
+        <button id="btn-pl" class="active" onclick="switchLang('pl')">🇵🇱 Polski</button>
+        <button id="btn-en" onclick="switchLang('en')">🇬🇧 English</button>
+    </div>
+
+    <!-- ==================== POLISH ==================== -->
+    <div id="lang-pl">
+        <div class="toc"><h3>Spis treści</h3><ol>
+            <li><a href="#pl-1">Czym jest LocAlarm</a></li>
+            <li><a href="#pl-2">Wymagania i uprawnienia</a></li>
+            <li><a href="#pl-3">Tworzenie alarmu</a></li>
+            <li><a href="#pl-4">Udostępnianie lokalizacji z aplikacji mapowych</a></li>
+            <li><a href="#pl-5">Uruchamianie i zatrzymywanie monitoringu</a></li>
+            <li><a href="#pl-6">Działanie alarmu</a></li>
+            <li><a href="#pl-7">Ponowne wyzwolenie alarmu</a></li>
+            <li><a href="#pl-8">Częstotliwość odświeżania lokalizacji</a></li>
+            <li><a href="#pl-9">Promień alarmu</a></li>
+            <li><a href="#pl-10">Tryb alarmu (dźwięk / wibracja)</a></li>
+            <li><a href="#pl-11">Wyjście audio (głośnik / Bluetooth)</a></li>
+            <li><a href="#pl-12">Zarządzanie alarmami</a></li>
+            <li><a href="#pl-13">Praca w tle i ustawienia baterii</a></li>
+            <li><a href="#pl-14">Ustawienia dla Motoroli (Moto G24 i inne)</a></li>
+            <li><a href="#pl-15">Zmiana języka</a></li>
+            <li><a href="#pl-16">Dziennik diagnostyczny</a></li>
+            <li><a href="#pl-17">Wersja próbna i pełna wersja</a></li>
+            <li><a href="#pl-18">Informacje prawne</a></li>
+            <li><a href="#pl-19">Rozwiązywanie problemów</a></li>
+        </ol></div>
+
+        <div class="section" id="pl-1"><h2>1. Czym jest LocAlarm</h2>
+            <p>LocAlarm to alarm lokalizacyjny, który powiadamia Cię dźwiękiem i/lub wibracją gdy zbliżysz się do wybranego miejsca. Aplikacja jest przeznaczona przede wszystkim dla osób podróżujących komunikacją miejską, pociągiem lub autobusem.</p>
+            <p>Jak to działa: ustawiasz punkt na mapie (lub udostępniasz go z Google Maps albo Mapy.cz), określasz promień strefy alarmu, uruchamiasz monitoring — i czekasz. Gdy Twoje urządzenie znajdzie się w wyznaczonej strefie, aplikacja włączy alarm.</p>
+        </div>
+
+        <div class="section" id="pl-2"><h2>2. Wymagania i uprawnienia</h2>
+            <p>Przy pierwszym uruchomieniu aplikacja wyświetli ekran z prośbą o przyznanie uprawnień. Język komunikatu można przełączyć przyciskiem PL/EN w prawym górnym rogu.</p>
+            <ul>
+                <li><strong>Lokalizacja (precyzyjna)</strong> — wybierz „Zezwalaj przez cały czas".</li>
+                <li><strong>Lokalizacja w tle</strong> — Android zapyta oddzielnie. Niezbędne dla alarmów przy wyłączonym ekranie.</li>
+                <li><strong>Powiadomienia</strong> — do wyświetlania alertów.</li>
+            </ul>
+            <div class="warning"><strong>Ważne:</strong> Bez lokalizacji w tle aplikacja monitoruje pozycję tylko gdy jest otwarta na ekranie.</div>
+        </div>
+
+        <div class="section" id="pl-3"><h2>3. Tworzenie alarmu</h2>
+            <ol>
+                <li>Na ekranie głównym naciśnij przycisk <strong>+</strong> (dodawanie nowego alarmu).</li>
+                <li>Wpisz <strong>nazwę</strong>, <strong>szerokość</strong> (np. 52.2297), <strong>długość</strong> (np. 21.0122) i <strong>promień</strong>.</li>
+                <li>Opcjonalnie dodaj <strong>zdjęcie</strong> — będzie wyświetlane jako tło ekranu STOP.</li>
+                <li>Naciśnij <strong>Zapisz</strong>.</li>
+            </ol>
+            <p>Aplikacja sprawdza poprawność danych (szerokość: -90 do 90, długość: -180 do 180).</p>
+            <div class="info"><strong>Nowy alarm zapisuje się jako nieaktywny.</strong> Po zapisaniu musisz ręcznie włączyć alarm przełącznikiem i uruchomić monitoring przyciskiem Start.</div>
+            <div class="tip"><strong>Skąd wziąć współrzędne?</strong> Najłatwiej udostępnić lokalizację z Google Maps lub Mapy.cz — patrz punkt 4.</div>
+        </div>
+
+        <div class="section" id="pl-4"><h2>4. Udostępnianie lokalizacji z aplikacji mapowych</h2>
+            <h3>Zweryfikowane aplikacje: Google Maps i Mapy.cz</h3>
+            <p>Udostępnianie z <strong>Google Maps</strong> i <strong>Mapy.cz</strong> zostało przetestowane i działa poprawnie:</p>
+            <ol>
+                <li>Otwórz Google Maps lub Mapy.cz → znajdź miejsce lub upuść pinezkę.</li>
+                <li>Naciśnij udostępnianie → wybierz LocAlarm → poczekaj 1–2 sek.</li>
+                <li>Ekran alarmu otworzy się z wypełnionymi współrzędnymi → Zapisz.</li>
+            </ol>
+            <div class="info"><strong>Uwaga:</strong> Link z Google Maps wymaga internetu.</div>
+            <h3>Inne aplikacje mapowe (geo: URI)</h3>
+            <p>LocAlarm obsługuje też inne aplikacje (OsmAnd, HERE Maps), ale <strong>nie zostały w pełni zweryfikowane</strong>.</p>
+            <div class="warning"><strong>Ważne:</strong> Po udostępnieniu z innej aplikacji <strong>zawsze sprawdź</strong> współrzędne. Dla Polski: szerokość ≈ 49–55°, długość ≈ 14–24°.</div>
+        </div>
+
+        <div class="section" id="pl-5"><h2>5. Uruchamianie i zatrzymywanie monitoringu</h2>
+            <p><strong>Start:</strong> aktywuj alarm przełącznikiem → naciśnij Start → pojawi się powiadomienie.</p>
+            <p><strong>Stop:</strong> naciśnij Stop → powiadomienie zniknie.</p>
+
+            <h3>Kontrole przy uruchomieniu</h3>
+            <p>Przy naciśnięciu Start aplikacja sprawdza:</p>
+            <ul>
+                <li><strong>Lokalizacja (GPS)</strong> — jeśli wyłączona, pojawi się dialog z przyciskiem przenoszącym do ustawień lokalizacji.</li>
+                <li><strong>Optymalizacja baterii</strong> — jeśli włączona, pojawi się ostrzeżenie z przyciskiem przenoszącym do ustawień baterii. Monitoring można uruchomić mimo ostrzeżenia (przycisk „Później").</li>
+            </ul>
+
+            <h3>Ostrzeżenia w trakcie monitoringu</h3>
+            <ul>
+                <li><strong>GPS wyłączony</strong> — jeśli lokalizacja zostanie wyłączona w trakcie monitoringu, pojawi się powiadomienie „Lokalizacja wyłączona". Kliknięcie przenosi do ustawień. Po ponownym włączeniu GPS powiadomienie znika automatycznie.</li>
+                <li><strong>Niska bateria</strong> — przy baterii poniżej 15% pojawia się powiadomienie ostrzegawcze. System Android może blokować GPS przy niskim stanie baterii, powodując opóźnienia w lokalizacji.</li>
+            </ul>
+
+            <div class="warning"><strong>Ważne:</strong> Zatrzymanie monitoringu NIE wyłącza alarmu — alarm pozostaje skonfigurowany.</div>
+            <div class="tip"><strong>Wskazówka:</strong> Monitoring działa jako foreground service — nawet przy wyłączonym ekranie.</div>
+        </div>
+
+        <div class="section" id="pl-6"><h2>6. Działanie alarmu</h2>
+            <p>Gdy odległość od alarmu &lt; promień:</p>
+            <ol>
+                <li>Włącza się <strong>alarm</strong> (dźwięk i/lub wibracja).</li>
+                <li>Ekran wyłączony → budzi się → <strong>pełnoekranowy przycisk STOP</strong> (jak budzik) z informacją o odległości od celu i promieniu strefy.</li>
+                <li>Ekran włączony → <strong>powiadomienie heads-up</strong> z przyciskiem STOP i informacją o odległości.</li>
+                <li>Jeśli do alarmu przypisano <strong>zdjęcie</strong>, wyświetla się ono jako tło ekranu STOP.</li>
+            </ol>
+            <p>Zatrzymanie alarmu przyciskiem STOP na ekranie pełnoekranowym lub na powiadomieniu — oba sposoby zamykają alarm i ekran STOP jednocześnie.</p>
+            <div class="warning"><strong>Ważne:</strong> Alarm trwa do ręcznego zatrzymania. Dopóki trwa, nowy alarm nie zostanie uruchomiony.</div>
+        </div>
+
+        <div class="section" id="pl-7"><h2>7. Ponowne wyzwolenie alarmu</h2>
+            <p>Alarm reaguje na <strong>wejście w strefę</strong> — czyli na moment przekroczenia granicy promienia z zewnątrz do wewnątrz. Samo przebywanie w strefie nie wyzwala alarmu ponownie.</p>
+            <h3>Jak działa ponowne wyzwolenie</h3>
+            <p>Po zatrzymaniu alarmu przyciskiem STOP:</p>
+            <ul>
+                <li>Rozpoczyna się <strong>5-minutowy okres cooldown</strong> — w tym czasie alarm nie może się ponownie uruchomić, nawet jeśli opuścisz strefę i wrócisz.</li>
+                <li>Po upływie cooldownu alarm jest gotowy do ponownego wyzwolenia, ale <strong>wymaga opuszczenia strefy i ponownego wejścia</strong>.</li>
+                <li>Jeśli po zatrzymaniu alarmu pozostajesz w strefie (np. wysiadłeś na przystanku i stoisz w miejscu) — alarm <strong>nie odpali się ponownie</strong>, dopóki nie wyjdziesz poza promień i nie wrócisz.</li>
+            </ul>
+            <h3>Schemat zabezpieczeń</h3>
+            <div class="info">
+                1. Alarm właśnie dźwięczy/wibruje? → nie uruchamiaj nowego.<br>
+                2. Cooldown aktywny (5 min od zatrzymania)? → nie uruchamiaj.<br>
+                3. Byłeś poza strefą od ostatniego alarmu? → NIE → nie uruchamiaj.<br>
+                4. Właśnie wszedłeś w strefę (przekroczyłeś granicę)? → TAK → uruchom alarm.
+            </div>
+            <div class="tip"><strong>W praktyce:</strong> Dla komunikacji miejskiej alarm obudzi Cię raz przed przystankiem. Jeśli nie wysiądziesz i pojedziesz dalej — alarm odpali się ponownie dopiero gdy opuścisz strefę i ponownie do niej wjedziesz (np. w drodze powrotnej).</div>
+        </div>
+
+        <div class="section" id="pl-8"><h2>8. Częstotliwość odświeżania lokalizacji</h2>
+            <p>Opcje: <strong>10s / 30s / 1m / 5m / 10m</strong></p>
+            <div class="tip"><strong>W mieście:</strong> Ustaw <strong>10s</strong> (rekomendowane) lub maksymalnie <strong>30s</strong>.</div>
+            <div class="tip"><strong>Poza miastem:</strong> Od <strong>1m do 10m</strong> w zależności od wielkości strefy alarmu.</div>
+            <div class="info"><strong>Rzeczywista częstotliwość:</strong> System Android może ograniczać GPS przy wyłączonym ekranie. Aplikacja ma fallback wymuszający lokalizację gdy system opóźnia aktualizacje.</div>
+        </div>
+
+        <div class="section" id="pl-9"><h2>9. Promień alarmu</h2>
+            <ul>
+                <li><strong>Minimum 200–300 m</strong> — komunikacja miejska w mieście.</li>
+                <li><strong>500 m</strong> — dobry domyślny wybór.</li>
+                <li><strong>1000 m+</strong> — metro i komunikacja podziemna (niska dokładność GPS).</li>
+                <li><strong>2 km – 22 km</strong> — kolej i szybkie pociągi.</li>
+            </ul>
+            <div class="tip"><strong>Wskazówka:</strong> Promień i częstotliwość dobieraj razem. Miasto: 200–300 m + 10s. Metro: 1000 m+. Poza miastem: 2+ km + 1m–10m.</div>
+        </div>
+
+        <div class="section" id="pl-10"><h2>10. Tryb alarmu (dźwięk / wibracja)</h2>
+            <ul>
+                <li><strong>Dźwięk</strong> — tylko dźwięk.</li>
+                <li><strong>Wibracja</strong> — tylko wibracja.</li>
+                <li><strong>Dźwięk + wibracja</strong> — oba (domyślne).</li>
+            </ul>
+        </div>
+
+        <div class="section" id="pl-11"><h2>11. Wyjście audio (głośnik / Bluetooth)</h2>
+            <ul>
+                <li><strong>Głośnik telefonu</strong> — zawsze z głośnika (domyślne).</li>
+                <li><strong>Aktywne urządzenie</strong> — przez Bluetooth jeśli podłączony.</li>
+            </ul>
+        </div>
+
+        <div class="section" id="pl-12"><h2>12. Zarządzanie alarmami</h2>
+            <p><strong>Włączanie/wyłączanie:</strong> przełącznik przy każdym alarmie.</p>
+            <p><strong>Edycja:</strong> naciśnij alarm na liście.</p>
+            <p><strong>Usuwanie:</strong> ikona kosza — nieodwracalne.</p>
+            <p><strong>Pokaż na mapie:</strong> ikona 📍 przy każdym alarmie — otwiera Google Maps z pinezką wskazującą dokładną lokalizację alarmu.</p>
+            <p><strong>Wiele alarmów:</strong> sprawdzane są wszystkie aktywne alarmy jednocześnie.</p>
+            <div class="info"><strong>Wersja próbna:</strong> W wersji próbnej (30 dni) można ustawić maksymalnie 1 alarm. Pełna wersja pozwala na nieograniczoną liczbę alarmów.</div>
+        </div>
+
+        <div class="section" id="pl-13"><h2>13. Praca w tle i ustawienia baterii</h2>
+            <p><strong>Niezbędne ustawienia:</strong></p>
+            <ol>
+                <li>Ustawienia → Aplikacje → LocAlarm → Bateria → <strong>„Bez ograniczeń"</strong></li>
+                <li>Uprawnienia → Lokalizacja → <strong>„Zawsze zezwalaj"</strong> + „Użyj dokładnej lokalizacji"</li>
+                <li>Ustawienia → Bateria → Optymalizacja baterii → LocAlarm → <strong>„Nie optymalizuj"</strong></li>
+            </ol>
+            <p>Automatyczny restart monitoringu po restarcie urządzenia.</p>
+            <div class="warning"><strong>Ważne:</strong> Bez tych kroków system może usypiać LocAlarm, powodując opóźnienia lub brak alarmów. Aplikacja ostrzega o aktywnej optymalizacji baterii przy uruchomieniu monitoringu.</div>
+        </div>
+
+        <div class="section" id="pl-14"><h2>14. Ustawienia dla Motoroli (Moto G24 i inne)</h2>
+            <p>Motorola z Androidem 14+ stosuje agresywną optymalizację powodującą opóźnienia GPS nawet o 20–30 s.</p>
+            <ol>
+                <li>Bateria → Optymalizacja baterii → LocAlarm → „Nie optymalizuj"</li>
+                <li>Bateria → Adaptacyjna bateria → Wyłącz</li>
+                <li>Aplikacje → LocAlarm → Bateria → „Bez ograniczeń"</li>
+                <li>Autostart → Włącz (jeśli dostępne)</li>
+            </ol>
+            <div class="warning"><strong>Znane ograniczenie:</strong> Mimo tych kroków Motorola może opóźniać GPS. Aplikacja ma fallback. Ustaw interwał <strong>10s</strong> i promień <strong>min. 500 m</strong>.</div>
+            <div class="info"><strong>Dotyczy również:</strong> Xiaomi, Samsung, Huawei, Oppo, Realme. Szczegóły: <a href="https://dontkillmyapp.com" target="_blank">dontkillmyapp.com</a>.</div>
+        </div>
+
+        <div class="section" id="pl-15"><h2>15. Zmiana języka</h2>
+            <p>Przycisk <strong>PL/EN</strong> na górnym pasku ekranu głównego (obok ustawień). Dostępny też na ekranie uprawnień przy pierwszym uruchomieniu. Domyślny język aplikacji to angielski.</p>
+        </div>
+
+        <div class="section" id="pl-16"><h2>16. Dziennik diagnostyczny</h2>
+            <p>Aplikacja prowadzi lokalny dziennik diagnostyczny rejestrujący kluczowe zdarzenia: uruchomienie i zatrzymanie monitoringu, odczyty lokalizacji, wyzwolenie alarmu, poziom baterii, błędy i awarie. Dziennik jest przydatny przy diagnozowaniu problemów z działaniem aplikacji.</p>
+
+            <h3>Gdzie znaleźć dziennik</h3>
+            <p>W <strong>Ustawieniach</strong> aplikacji, w sekcji dziennika diagnostycznego. Obok przycisków wyświetlana jest informacja o aktualnym rozmiarze pliku dziennika (np. „47 KB").</p>
+
+            <h3>Udostępnianie dziennika</h3>
+            <p>Naciśnij przycisk <strong>„Udostępnij dziennik diagnostyczny"</strong>. Dziennik zostanie wyeksportowany jako plik tekstowy (.txt), który możesz wysłać e-mailem, przez komunikator lub zapisać w innej lokalizacji. Dziennik jest udostępniany <strong>wyłącznie na Twoje żądanie</strong> — aplikacja nigdy nie wysyła go automatycznie.</p>
+
+            <h3>Czyszczenie dziennika</h3>
+            <p>Naciśnij przycisk <strong>„Wyczyść dziennik"</strong> aby usunąć wszystkie wpisy. Po wyczyszczeniu dziennik zaczyna się od nowa. Rozmiar pliku wyświetlany obok przycisków zaktualizuje się natychmiast.</p>
+
+            <h3>Rozmiar i ograniczenia</h3>
+            <p>Dziennik jest automatycznie przycinany do maksymalnie ok. 500 KB — starsze wpisy są usuwane gdy plik osiągnie ten rozmiar. Dziennik jest przechowywany w pamięci wewnętrznej aplikacji i jest niedostępny dla innych aplikacji.</p>
+
+            <div class="tip"><strong>Kiedy udostępnić dziennik?</strong> Jeśli napotkasz problem (alarm nie działa, opóźnienia GPS, crash aplikacji) — udostępnij dziennik autorowi aplikacji na adres <a href="mailto:amalabs@o2.pl">amalabs@o2.pl</a>. Dziennik pomoże zdiagnozować przyczynę problemu.</div>
+        </div>
+
+        <div class="section" id="pl-17"><h2>17. Wersja próbna i pełna wersja</h2>
+            <p>LocAlarm jest darmowy z <strong>30-dniowym okresem próbnym</strong>. Po pobraniu wszystkie funkcje są dostępne przez 30 dni z limitem 1 alarmu.</p>
+
+            <h3>Ograniczenia wersji próbnej</h3>
+            <ul>
+                <li>Maksymalnie <strong>1 alarm</strong></li>
+                <li>Limit czasowy: <strong>30 dni</strong> od pierwszej instalacji</li>
+            </ul>
+
+            <h3>Po wygaśnięciu okresu próbnego</h3>
+            <p>Wszystkie funkcje alarmowe zostają zablokowane — monitoring nie uruchomi się, alarmy nie będą działać. Istniejące alarmy nie są usuwane — czekają na odblokowanie.</p>
+
+            <h3>Pełna wersja</h3>
+            <p>Jednorazowy zakup w aplikacji odblokowuje pełną wersję <strong>na zawsze</strong>:</p>
+            <ul>
+                <li>Nieograniczona liczba alarmów</li>
+                <li>Wszystkie interwały odświeżania (10s, 30s, 1m, 5m, 10m)</li>
+                <li>Wyjście audio Bluetooth</li>
+                <li>Zdjęcia alarmów</li>
+                <li>Brak limitu czasowego</li>
+            </ul>
+
+            <h3>Przywracanie zakupu</h3>
+            <p>Jeśli reinstalowałeś aplikację lub zmieniłeś telefon — otwórz <strong>Ustawienia → Przywróć zakup</strong>. Zakup jest powiązany z Twoim kontem Google i może być przywrócony na każdym urządzeniu.</p>
+        </div>
+
+        <div class="section" id="pl-18"><h2>18. Informacje prawne</h2>
+            <p>W menu „Informacje prawne": EULA i licencje open source. Polityka prywatności online — adres w Google Play.</p>
+        </div>
+
+        <div class="section" id="pl-19"><h2>19. Rozwiązywanie problemów</h2>
+            <h3>Alarm nie włącza się w tle</h3>
+            <ul>
+                <li>Sprawdź monitoring (powiadomienie), alarm (przełącznik), lokalizację („Zawsze zezwalaj").</li>
+                <li>Wyłącz optymalizację baterii (pkt 13). Na Motoroli: pkt 14.</li>
+            </ul>
+            <h3>Alarm uruchamia się zbyt późno</h3>
+            <ul>
+                <li>W mieście: interwał <strong>10s</strong>, promień <strong>min. 200–300 m</strong>.</li>
+                <li>Poza miastem: zwiększ promień proporcjonalnie do prędkości.</li>
+                <li>Wyłącz optymalizację baterii (pkt 13–14).</li>
+                <li>Motorola Android 14: opóźnienie 20–30 s jest znane. Ustaw większy promień.</li>
+            </ul>
+            <h3>Alarm uruchamia się wielokrotnie</h3>
+            <ul><li>Nie powinno — alarm wymaga opuszczenia strefy i ponownego wejścia + 5 min cooldown. Zaktualizuj aplikację.</li></ul>
+            <h3>Fullscreen STOP nie pojawia się przy alarmie</h3>
+            <ul>
+                <li>Jeśli alarm gra ale nie pojawia się pełnoekranowy przycisk STOP — <strong>odinstaluj i zainstaluj aplikację ponownie</strong>. Problem może wynikać z nieprawidłowego kanału powiadomień, który resetuje się przy reinstalacji.</li>
+                <li>Po reinstalacji przyznaj ponownie wszystkie uprawnienia.</li>
+                <li>Jeśli problem się powtarza — udostępnij dziennik diagnostyczny autorowi (pkt 16).</li>
+            </ul>
+            <h3>Udostępnianie z Google Maps nie działa</h3>
+            <ul>
+                <li>Upewnij się, że masz internet. Poczekaj na „Odczytywanie lokalizacji..." (1–2 sek). Nie wciskaj cofnij.</li>
+                <li>Jeśli nie działa — <strong>zanim wpiszesz ręcznie</strong>, spróbuj upuścić pinezkę obok i udostępnić ją. Pinezka jest bardziej niezawodna niż POI.</li>
+                <li>Dopiero jeśli pinezka nie zadziała — wpisz ręcznie.</li>
+            </ul>
+            <h3>Współrzędne z Mapy.cz zamienione</h3>
+            <ul><li>Zaktualizuj aplikację — naprawione. Spróbuj pinezkę zamiast wyszukanego miejsca.</li></ul>
+            <h3>Współrzędne z innej aplikacji mapowej nieprawidłowe</h3>
+            <ul>
+                <li>Aplikacje inne niż Google Maps i Mapy.cz nie są w pełni zweryfikowane.</li>
+                <li><strong>Zawsze sprawdź</strong> współrzędne. Polska: szer. ≈ 49–55°, dług. ≈ 14–24°.</li>
+                <li>Spróbuj pinezkę w pobliżu. Jeśli nie pomoże — wpisz ręcznie lub użyj Google Maps/Mapy.cz.</li>
+            </ul>
+            <h3>Duże zużycie baterii</h3>
+            <ul>
+                <li>Poza miastem: zwiększ interwał (1m–10m) i promień. Zatrzymaj monitoring gdy nie jest potrzebny.</li>
+            </ul>
+            <h3>Inne problemy</h3>
+            <ul>
+                <li>Udostępnij dziennik diagnostyczny (pkt 16) autorowi na adres <a href="mailto:amalabs@o2.pl">amalabs@o2.pl</a> — pomoże to zdiagnozować przyczynę.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== ENGLISH ==================== -->
+    <div id="lang-en" class="hidden">
+        <div class="toc"><h3>Table of Contents</h3><ol>
+            <li><a href="#en-1">What is LocAlarm</a></li>
+            <li><a href="#en-2">Requirements and Permissions</a></li>
+            <li><a href="#en-3">Creating an Alarm</a></li>
+            <li><a href="#en-4">Sharing Location from Map Apps</a></li>
+            <li><a href="#en-5">Starting and Stopping Monitoring</a></li>
+            <li><a href="#en-6">Alarm Behavior</a></li>
+            <li><a href="#en-7">Alarm Re-triggering</a></li>
+            <li><a href="#en-8">Location Refresh Frequency</a></li>
+            <li><a href="#en-9">Alarm Radius</a></li>
+            <li><a href="#en-10">Alarm Mode (Sound / Vibration)</a></li>
+            <li><a href="#en-11">Audio Output (Speaker / Bluetooth)</a></li>
+            <li><a href="#en-12">Managing Alarms</a></li>
+            <li><a href="#en-13">Background Operation and Battery Settings</a></li>
+            <li><a href="#en-14">Settings for Motorola (Moto G24 and others)</a></li>
+            <li><a href="#en-15">Language Change</a></li>
+            <li><a href="#en-16">Diagnostic Log</a></li>
+            <li><a href="#en-17">Trial and Full Version</a></li>
+            <li><a href="#en-18">Legal Information</a></li>
+            <li><a href="#en-19">Troubleshooting</a></li>
+        </ol></div>
+
+        <div class="section" id="en-1"><h2>1. What is LocAlarm</h2>
+            <p>LocAlarm is a location-based alarm that notifies you with sound and/or vibration when you approach a chosen destination. Designed for commuters traveling by bus, train, or public transit.</p>
+            <p>How it works: set a point on the map (or share from Google Maps or Mapy.cz), define the alarm radius, start monitoring — and wait. When your device enters the zone, the app triggers an alarm.</p>
+        </div>
+
+        <div class="section" id="en-2"><h2>2. Requirements and Permissions</h2>
+            <p>On first launch, a permission screen appears. Switch language with PL/EN button in the top-right corner.</p>
+            <ul>
+                <li><strong>Location (precise)</strong> — select "Allow all the time".</li>
+                <li><strong>Background location</strong> — asked separately. Essential for screen-off alarms.</li>
+                <li><strong>Notifications</strong> — for alarm alerts.</li>
+            </ul>
+            <div class="warning"><strong>Important:</strong> Without background location, the app only monitors while open on screen.</div>
+        </div>
+
+        <div class="section" id="en-3"><h2>3. Creating an Alarm</h2>
+            <ol>
+                <li>On the main screen, tap the <strong>+</strong> button to add a new alarm.</li>
+                <li>Enter the <strong>name</strong>, <strong>latitude</strong> (e.g., 52.2297), <strong>longitude</strong> (e.g., 21.0122), and <strong>radius</strong>.</li>
+                <li>Optionally add a <strong>photo</strong> — it will be displayed as the STOP screen background.</li>
+                <li>Tap <strong>Save</strong>.</li>
+            </ol>
+            <p>The app validates the data (latitude: -90 to 90, longitude: -180 to 180).</p>
+            <div class="info"><strong>New alarms are saved as inactive.</strong> After saving, you need to manually enable the alarm with the toggle and start monitoring with the Start button.</div>
+            <div class="tip"><strong>Tip:</strong> Share a location from Google Maps or Mapy.cz for the easiest setup — see section 4.</div>
+        </div>
+
+        <div class="section" id="en-4"><h2>4. Sharing Location from Map Apps</h2>
+            <h3>Verified apps: Google Maps and Mapy.cz</h3>
+            <p>Location sharing from <strong>Google Maps</strong> and <strong>Mapy.cz</strong> has been tested and works correctly:</p>
+            <ol>
+                <li>Open Google Maps or Mapy.cz → find destination or drop a pin.</li>
+                <li>Tap share → select LocAlarm → wait 1–2 seconds.</li>
+                <li>Alarm screen opens with pre-filled coordinates → Save.</li>
+            </ol>
+            <div class="info"><strong>Note:</strong> Google Maps link requires internet.</div>
+            <h3>Other map apps (geo: URI)</h3>
+            <p>LocAlarm supports other apps (OsmAnd, HERE Maps) but they have <strong>not been fully verified</strong>.</p>
+            <div class="warning"><strong>Important:</strong> After sharing from other apps, <strong>always verify</strong> coordinates. For Poland: latitude ≈ 49–55°, longitude ≈ 14–24°.</div>
+        </div>
+
+        <div class="section" id="en-5"><h2>5. Starting and Stopping Monitoring</h2>
+            <p><strong>Start:</strong> enable the alarm with the toggle → tap Start → a notification will appear.</p>
+            <p><strong>Stop:</strong> tap Stop → the notification will disappear.</p>
+
+            <h3>Checks at startup</h3>
+            <p>When you tap Start, the app checks:</p>
+            <ul>
+                <li><strong>Location (GPS)</strong> — if disabled, a dialog appears with a button to open location settings.</li>
+                <li><strong>Battery optimization</strong> — if enabled, a warning appears with a button to open battery settings. You can start monitoring despite the warning ("Later" button).</li>
+            </ul>
+
+            <h3>Warnings during monitoring</h3>
+            <ul>
+                <li><strong>GPS disabled</strong> — if location services are turned off during monitoring, a "Location disabled" notification appears. Tapping it opens location settings. It dismisses automatically when GPS is re-enabled.</li>
+                <li><strong>Low battery</strong> — when battery drops below 15%, a warning notification appears. Android may block GPS at low battery levels, causing location delays.</li>
+            </ul>
+
+            <div class="warning"><strong>Important:</strong> Stopping monitoring does NOT disable the alarm — the alarm remains configured.</div>
+            <div class="tip"><strong>Tip:</strong> Monitoring runs as a foreground service — even with the screen off.</div>
+        </div>
+
+        <div class="section" id="en-6"><h2>6. Alarm Behavior</h2>
+            <p>When the distance from the alarm &lt; radius:</p>
+            <ol>
+                <li>The <strong>alarm</strong> activates (sound and/or vibration).</li>
+                <li>Screen off → wakes up → <strong>full-screen STOP button</strong> (like an alarm clock) showing distance to destination and zone radius.</li>
+                <li>Screen on → <strong>heads-up notification</strong> with STOP button and distance info.</li>
+                <li>If a <strong>photo</strong> is assigned to the alarm, it is displayed as the STOP screen background.</li>
+            </ol>
+            <p>Stopping the alarm via the STOP button on the full screen or on the notification — both methods close the alarm and the STOP screen simultaneously.</p>
+            <div class="warning"><strong>Important:</strong> The alarm sounds until manually stopped. While active, no new alarm will trigger.</div>
+        </div>
+
+        <div class="section" id="en-7"><h2>7. Alarm Re-triggering</h2>
+            <p>The alarm reacts to <strong>entering the zone</strong> — the moment you cross the radius boundary from outside to inside. Simply being inside the zone does not re-trigger the alarm.</p>
+            <h3>How re-triggering works</h3>
+            <p>After stopping the alarm with the STOP button:</p>
+            <ul>
+                <li>A <strong>5-minute cooldown period</strong> begins — during this time the alarm cannot re-trigger, even if you leave and re-enter the zone.</li>
+                <li>After cooldown expires, the alarm is ready to trigger again, but <strong>requires leaving the zone and re-entering</strong>.</li>
+                <li>If you remain in the zone after stopping the alarm (e.g., you got off at your stop and are standing still) — the alarm <strong>will not trigger again</strong> until you move beyond the radius and come back.</li>
+            </ul>
+            <h3>Protection scheme</h3>
+            <div class="info">
+                1. Alarm currently sounding/vibrating? → don't trigger.<br>
+                2. Cooldown active (5 min since stop)? → don't trigger.<br>
+                3. Were you outside the zone since last alarm? → NO → don't trigger.<br>
+                4. Just entered the zone (crossed boundary)? → YES → trigger alarm.
+            </div>
+            <div class="tip"><strong>In practice:</strong> For public transit, the alarm wakes you once before your stop. If you don't get off and continue — the alarm will only trigger again when you leave the zone and re-enter it (e.g., on the return trip).</div>
+        </div>
+
+        <div class="section" id="en-8"><h2>8. Location Refresh Frequency</h2>
+            <p>Options: <strong>10s / 30s / 1m / 5m / 10m</strong></p>
+            <div class="tip"><strong>In the city:</strong> Use <strong>10s</strong> (recommended) or maximum <strong>30s</strong>.</div>
+            <div class="tip"><strong>Outside the city:</strong> <strong>1m to 10m</strong> depending on alarm zone size.</div>
+            <div class="info"><strong>Actual frequency:</strong> Android may limit GPS when screen is off. App has fallback forcing location updates.</div>
+        </div>
+
+        <div class="section" id="en-9"><h2>9. Alarm Radius</h2>
+            <ul>
+                <li><strong>Minimum 200–300 m</strong> — city bus/tram stops.</li>
+                <li><strong>500 m</strong> — good default.</li>
+                <li><strong>1000 m+</strong> — subway and underground transit (low GPS accuracy).</li>
+                <li><strong>2 km – 22 km</strong> — railways and high-speed trains.</li>
+            </ul>
+            <div class="tip"><strong>Tip:</strong> Match radius and refresh. City: 200–300 m + 10s. Subway: 1000 m+. Outside: 2+ km + 1m–10m.</div>
+        </div>
+
+        <div class="section" id="en-10"><h2>10. Alarm Mode (Sound / Vibration)</h2>
+            <ul>
+                <li><strong>Sound</strong> / <strong>Vibration</strong> / <strong>Sound + Vibration</strong> (default).</li>
+            </ul>
+        </div>
+
+        <div class="section" id="en-11"><h2>11. Audio Output (Speaker / Bluetooth)</h2>
+            <ul>
+                <li><strong>Phone speaker</strong> (default) / <strong>Active device</strong> (Bluetooth if connected).</li>
+            </ul>
+        </div>
+
+        <div class="section" id="en-12"><h2>12. Managing Alarms</h2>
+            <p><strong>Enable/disable:</strong> toggle switch next to each alarm.</p>
+            <p><strong>Edit:</strong> tap the alarm in the list.</p>
+            <p><strong>Delete:</strong> trash icon — irreversible.</p>
+            <p><strong>Show on map:</strong> 📍 icon next to each alarm — opens Google Maps with a pin showing the exact alarm location.</p>
+            <p><strong>Multiple alarms:</strong> all active alarms are checked simultaneously.</p>
+            <div class="info"><strong>Trial version:</strong> The trial version (30 days) allows a maximum of 1 alarm. The full version allows unlimited alarms.</div>
+        </div>
+
+        <div class="section" id="en-13"><h2>13. Background Operation and Battery Settings</h2>
+            <p><strong>Essential</strong> settings:</p>
+            <ol>
+                <li>Settings → Apps → LocAlarm → Battery → <strong>"Unrestricted"</strong></li>
+                <li>Permissions → Location → <strong>"Allow all the time"</strong> + "Use precise location"</li>
+                <li>Settings → Battery → Battery optimization → LocAlarm → <strong>"Don't optimize"</strong></li>
+            </ol>
+            <p>Auto-restart after reboot: automatic if monitoring was active.</p>
+            <div class="warning"><strong>Important:</strong> Without these settings, Android may delay or prevent alarms when screen is off. The app warns about active battery optimization when starting monitoring.</div>
+        </div>
+
+        <div class="section" id="en-14"><h2>14. Settings for Motorola (Moto G24 and others)</h2>
+            <p>Motorola with Android 14+ applies aggressive optimization causing 20–30s GPS delays.</p>
+            <ol>
+                <li>Battery optimization → LocAlarm → "Don't optimize"</li>
+                <li>Adaptive battery → Disable</li>
+                <li>LocAlarm → Battery → "Unrestricted"</li>
+                <li>Autostart → Enable (if available)</li>
+            </ol>
+            <div class="warning"><strong>Known limitation:</strong> Motorola may still delay GPS. App has fallback. Use <strong>10s</strong> interval and <strong>500 m+</strong> radius.</div>
+            <div class="info"><strong>Also applies to:</strong> Xiaomi, Samsung, Huawei, Oppo, Realme. Details: <a href="https://dontkillmyapp.com" target="_blank">dontkillmyapp.com</a>.</div>
+        </div>
+
+        <div class="section" id="en-15"><h2>15. Language Change</h2>
+            <p>PL/EN button on main screen top bar (next to settings). Also on permissions screen at first launch. The default language is English.</p>
+        </div>
+
+        <div class="section" id="en-16"><h2>16. Diagnostic Log</h2>
+            <p>The app maintains a local diagnostic log recording key events: monitoring start/stop, location readings, alarm triggers, battery level, errors, and crashes. The log is useful for diagnosing issues with the app's operation.</p>
+
+            <h3>Where to find the log</h3>
+            <p>In the app's <strong>Settings</strong>, in the diagnostic log section. The current log file size is displayed next to the buttons (e.g., "47 KB").</p>
+
+            <h3>Sharing the log</h3>
+            <p>Tap <strong>"Share diagnostic log"</strong>. The log will be exported as a text file (.txt) which you can send via email, messenger, or save to another location. The log is shared <strong>only at your explicit request</strong> — the app never sends it automatically.</p>
+
+            <h3>Clearing the log</h3>
+            <p>Tap <strong>"Clear log"</strong> to delete all entries. After clearing, the log starts fresh. The file size displayed next to the buttons updates immediately.</p>
+
+            <h3>Size and limits</h3>
+            <p>The log is automatically trimmed to a maximum of approximately 500 KB — older entries are removed when the file reaches this size. The log is stored in the app's internal storage and is inaccessible to other applications.</p>
+
+            <div class="tip"><strong>When to share the log?</strong> If you encounter a problem (alarm not working, GPS delays, app crash) — share the log with the app author at <a href="mailto:amalabs@o2.pl">amalabs@o2.pl</a>. The log will help diagnose the cause of the issue.</div>
+        </div>
+
+        <div class="section" id="en-17"><h2>17. Trial and Full Version</h2>
+            <p>LocAlarm is free with a <strong>30-day trial period</strong>. After downloading, all features are available for 30 days with a limit of 1 alarm.</p>
+
+            <h3>Trial limitations</h3>
+            <ul>
+                <li>Maximum <strong>1 alarm</strong></li>
+                <li>Time limit: <strong>30 days</strong> from first installation</li>
+            </ul>
+
+            <h3>After trial expires</h3>
+            <p>All alarm features are locked — monitoring will not start, alarms will not trigger. Existing alarms are not deleted — they wait to be unlocked.</p>
+
+            <h3>Full version</h3>
+            <p>A one-time in-app purchase unlocks the full version <strong>permanently</strong>:</p>
+            <ul>
+                <li>Unlimited alarms</li>
+                <li>All refresh intervals (10s, 30s, 1m, 5m, 10m)</li>
+                <li>Bluetooth audio output</li>
+                <li>Alarm photos</li>
+                <li>No time limit</li>
+            </ul>
+
+            <h3>Restoring a purchase</h3>
+            <p>If you reinstalled the app or changed your phone — go to <strong>Settings → Restore purchase</strong>. The purchase is linked to your Google account and can be restored on any device.</p>
+        </div>
+
+        <div class="section" id="en-18"><h2>18. Legal Information</h2>
+            <p>EULA and open source licenses in app menu. Privacy Policy online at Google Play URL.</p>
+        </div>
+
+        <div class="section" id="en-19"><h2>19. Troubleshooting</h2>
+            <h3>Alarm doesn't trigger in background</h3>
+            <ul>
+                <li>Check monitoring, alarm toggle, location permission, battery optimization (section 13). On Motorola: section 14.</li>
+            </ul>
+            <h3>Alarm triggers too late</h3>
+            <ul>
+                <li>In city: interval <strong>10s</strong>, radius <strong>min. 200–300 m</strong>.</li>
+                <li>Outside city: increase radius proportionally to speed.</li>
+                <li>Disable battery optimization (sections 13–14).</li>
+                <li>Motorola Android 14: 20–30s delay is known. Use larger radius.</li>
+            </ul>
+            <h3>Alarm triggers multiple times</h3>
+            <ul><li>Shouldn't happen — alarm requires leaving the zone and re-entering + 5 min cooldown. Update app.</li></ul>
+            <h3>Full-screen STOP doesn't appear when alarm triggers</h3>
+            <ul>
+                <li>If alarm sounds but the full-screen STOP button doesn't appear — <strong>uninstall and reinstall the app</strong>. This may be caused by an incorrect notification channel that resets upon reinstallation.</li>
+                <li>After reinstalling, grant all permissions again.</li>
+                <li>If the problem persists — share the diagnostic log with the author (section 16).</li>
+            </ul>
+            <h3>Sharing from Google Maps doesn't work</h3>
+            <ul>
+                <li>Ensure internet connection. Wait for "Reading location..." (1–2s). Don't press back.</li>
+                <li>If still fails — <strong>before entering manually</strong>, try dropping a new pin nearby and sharing that. Pins are more reliable than POIs.</li>
+                <li>Only if pin also fails — enter coordinates manually.</li>
+            </ul>
+            <h3>Coordinates from Mapy.cz swapped</h3>
+            <ul><li>Update app — fixed. Try sharing a pin instead of a searched place.</li></ul>
+            <h3>Coordinates from other map apps incorrect</h3>
+            <ul>
+                <li>Apps other than Google Maps and Mapy.cz are not fully verified.</li>
+                <li><strong>Always verify</strong> coordinates. Poland: lat ≈ 49–55°, lng ≈ 14–24°.</li>
+                <li>Try a pin nearby. If fails — enter manually or use Google Maps/Mapy.cz.</li>
+            </ul>
+            <h3>High battery usage</h3>
+            <ul><li>Outside city: increase interval (1m–10m) and radius. Stop monitoring when not needed.</li></ul>
+            <h3>Other issues</h3>
+            <ul><li>Share the diagnostic log (section 16) with the author at <a href="mailto:amalabs@o2.pl">amalabs@o2.pl</a> — this will help diagnose the cause.</li></ul>
+        </div>
+    </div>
+
+    <div class="footer">&copy; 2026 Andrzej Golonka — LocAlarm<br>Wersja instrukcji / Manual version: 2.4 — lipiec 2026</div>
+</div>
+<script>
+function switchLang(lang) {
+    document.getElementById('lang-pl').classList.toggle('hidden', lang !== 'pl');
+    document.getElementById('lang-en').classList.toggle('hidden', lang !== 'en');
+    document.getElementById('btn-pl').classList.toggle('active', lang === 'pl');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+}
+</script>
+</body>
+</html>
